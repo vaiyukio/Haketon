@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Views\dashboard.sshtml" />
     <None Include="Views\sunburst.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -109,6 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\nancy-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sunburst.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sunburst.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SQLs\init.sql" />
