@@ -1,8 +1,8 @@
-﻿namespace Haketon
-{
-    using System;
-    using Nancy.Hosting.Self;
+﻿using System;
+using Nancy.Hosting.Self;
 
+namespace Haketon
+{
     class Program
     {
         static void Main(string[] args)
@@ -13,7 +13,6 @@
             using (var host = new NancyHost(uri))
             {
                 host.Start();
-
                 Console.WriteLine("Your application is running on " + uri);
                 Console.WriteLine("Press any [Enter] to close the host.");
                 Console.ReadLine();
