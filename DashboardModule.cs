@@ -6,6 +6,7 @@ using Nancy;
 using Npgsql;
 using Dapper;
 using Haketon.Models;
+using Newtonsoft.Json;
 
 namespace Haketon
 {
@@ -67,6 +68,16 @@ namespace Haketon
                     return Response.AsRedirect("/verify");
                 };
             };
+
+            Get["/orders/{start}"] = parameters =>
+            {
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var data = conn.Query<OrderUser>("select * from Orders_Users where Id > @Start", new { Start = parameters.start }).ToList();
+                    return JsonConvert.SerializeObject(data);
+                };
+            };
+
         }
     }
 }

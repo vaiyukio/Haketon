@@ -75,10 +75,13 @@ CREATE OR REPLACE VIEW orders_users AS
     orders.orderdate,
     orders.fkmatchingorderid,
     users.id AS userid,
+	users.name As username,
     users.longitude,
-    users.latitude
+    users.latitude,
+    commodity.name as commodityname
    FROM orders
-     JOIN users ON orders.fkuserid = users.id;
+     JOIN users ON orders.fkuserid = users.id
+     JOIN commoditytype commodity on orders.commoditytype = commodity.id;
 
 ALTER TABLE orders_users
   OWNER TO postgres;
