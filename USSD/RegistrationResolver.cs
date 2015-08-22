@@ -10,5 +10,14 @@ namespace Haketon.USSD
 {
     public class RegistrationResolver
     {
+        public static string KTP = "Masukkan no KTP anda";
+        public static string ADDRESS = "Masukkan alamat anda sesuai KTP";
+        private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=haketon;Encoding=UNICODE";
+        private NpgsqlConnection conn;
+
+        public RegistrationResolver()
+        {
+
+        }
     }
 }

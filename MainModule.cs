@@ -19,10 +19,10 @@ namespace Haketon
                 string clientRequest = this.Request.Query["m"];
 
                 if (!isRegistered)
-                    return ApplicationConfig.registerMessage;
+                    return ApplicationConfig.REGISTER_MESSAGE;
 
                 if (string.IsNullOrEmpty(clientRequest))
-                    return ApplicationConfig.mainMessage;
+                    return ApplicationConfig.MAIN_MESSAGE ;
 
                 response = USSDResolver(clientRequest);
                 return response;
