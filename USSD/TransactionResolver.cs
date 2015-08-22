@@ -16,7 +16,5 @@ namespace Haketon.USSD
         {
             conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING);
         }
-
-
     }
 }

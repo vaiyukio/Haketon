@@ -12,6 +12,7 @@ CREATE TABLE orders
   ordertype character varying,
   orderdate timestamp without time zone,
   fkmatchingorderid integer,
+  ismatchsearched boolean,
   CONSTRAINT orders_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -74,10 +75,13 @@ CREATE OR REPLACE VIEW orders_users AS
     orders.orderdate,
     orders.fkmatchingorderid,
     users.id AS userid,
+	users.name As username,
     users.longitude,
-    users.latitude
+    users.latitude,
+    commodity.name as commodityname
    FROM orders
-     JOIN users ON orders.fkuserid = users.id;
+     JOIN users ON orders.fkuserid = users.id
+     JOIN commoditytype commodity on orders.commoditytype = commodity.id;
 
 ALTER TABLE orders_users
   OWNER TO postgres;
@@ -94,3 +98,20 @@ WITH (
 ALTER TABLE commoditytype
   OWNER TO postgres;
 
+-- Table: outboxes
+
+-- DROP TABLE outboxes;
+
+CREATE TABLE outboxes
+(
+  id serial NOT NULL,
+  phonenumber character varying,
+  message character varying,
+  isverified boolean,
+  CONSTRAINT outboxes_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE outboxes
+  OWNER TO postgres;

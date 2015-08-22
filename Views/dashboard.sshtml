@@ -4,44 +4,29 @@
     <meta charset="utf-8" />
     <title>Haketon</title>
 
-	<style type="text/css">
-
-		body {
-			text-align: center;
-		}
-
-	</style>
-
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
 </head>
 <body>
-	@Model
 	<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
-			<form>
-			  <div class="form-group">
-				<label for="name">Nama</label>
-				<input type="text" class="form-control" id="name" placeholder="Nama">
-			  </div>
-			  <div class="form-group">
-				<label for="number">Nomor Telepon</label>
-				<input type="text" class="form-control" id="number" placeholder="Nomor Telepon">
-			  </div>
-			  <div class="form-group">
-				<label for="ktp">Nomor KTP</label>
-				<input type="text" class="form-control" id="ktp" placeholder="Nomor KTP">
-			  </div>
-			  <div class="form-group">
-				<label for="address">Alamat</label>
-				<textarea class="form-control" id="address" placeholder="Alamat"></textarea>
-			  </div>
-			  <button type="submit" class="btn btn-default">Approve</button>
-			</form>
+			<table class="table table-condensed table-dashboard">
+				<thead>
+					<tr>
+						<th>Tipe</th>
+						<th>Komoditas</th>
+						<th>Jumlah</th>
+						<th>Harga</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
 		<div id="map" class="col-md-9" style="height: 600px;"></div>
 	</div>
@@ -98,32 +83,42 @@
 		o.Id = 1;
 		o.Amount = 1000;
 		o.Price = 5300;
-		o.latlng = {
-			lat: 	-7.28891,
-			lng: 106.6684564948082
-		};
-
-		var o2 = window.o2 = {};
-		o2.Id = 2;
-		o2.Amount = 1000;
-		o2.Price = 5300;
-		o2.latlng = {
-			lat: 	-7.22761,
-			lng: 107.09651
-		};
+		o.Latitude = -7.28891;
+		o.OrderType = "Purchase";
+		o.UserName = "Joko";
+		o.CommodityName = "Beras";
+		o.Longitude = 106.6684564948082;
 
         var popups = {}
 
         function addOrder(order){
             var p = L.popup();
             popups[order.Id] = p;
+			var verb = order.OrderType == "Purchase" ? "Beli" : "Jual";
 			p
-				.setLatLng(order.latlng)
-				.setContent("Beli, " + order.Amount +" Kg, Rp. "+order.Price)
+				.setLatLng(L.latLng(order.Latitude, order.Longitude))
+				.setContent("Beli " + order.CommodityName +", "+ order.UserName +", " + order.Amount +" Kg, Rp. "+order.Price)
 				.openOn(map);
-			map.setView([order.latlng.lat, order.latlng.lng], 10);
+			map.setView([order.Latitude, order.Longitude], 9);
+			$(".table-dashboard tbody").prepend($("<tr><td>"+verb+"</td><td>"+order.CommodityName+"</td><td>"+order.Amount+"</td><td>"+order.Price+"</td></tr>"))
         }
 
+		var lastId = 0;
+
+		function update(){
+			$.getJSON("/orders/"+lastId).success(function(orders){
+				for(var i = 0; i < orders.length; i++)
+				{
+					var o = orders[i];
+					setTimeout(function(){addOrder(o);}, 0);
+					if(o.Id > lastId)
+						lastId = o.Id;
+				}
+			}).always(function(){
+				setTimeout(update, 1000);
+			});
+		}
+		setTimeout(update, 0);
 
 	</script>
 </body>

@@ -6,6 +6,7 @@ using Nancy;
 using Npgsql;
 using Dapper;
 using Haketon.Models;
+using Newtonsoft.Json;
 
 namespace Haketon
 {
@@ -17,7 +18,7 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || order_type || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
                     var data = datas[0];
                     return View["dashboard", data];
                 };
@@ -67,6 +68,16 @@ namespace Haketon
                     return Response.AsRedirect("/verify");
                 };
             };
+
+            Get["/orders/{start}"] = parameters =>
+            {
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var data = conn.Query<OrderUser>("select * from Orders_Users where Id > @Start", new { Start = parameters.start }).ToList();
+                    return JsonConvert.SerializeObject(data);
+                };
+            };
+
         }
     }
 }
