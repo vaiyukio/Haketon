@@ -13,17 +13,18 @@ namespace Haketon
     {
         public DasboardModule()
         {
-            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=haketon;Encoding=UNICODE";
-            Get["/sunburst"] = parameters => 
+           
+            Get["/dashboard"] = parameters =>
             {
-                using (var conn = new NpgsqlConnection(connectionString))
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
                     var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || order_type || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
                     var data = datas[0];
-                    return View["sunburst",data];
+                    return View["dashboard", data];
                 };
-                
+
             };
         }
     }
 }
+

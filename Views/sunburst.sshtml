@@ -35,8 +35,12 @@
 
 		// Mapping of step names to colors.
 		var colors = {
-			"Beras": "#de783b",
-			"Jual": "#6ab975"
+			"Beras": "#5687d1",
+			"Jual": "#7b615c",
+			"Beli": "#de783b",
+			"GKG": "#6ab975",
+			"GKP": "#a173d1",
+			"end": "#bbbbbb"
 		};
 
 		// Total size of all segments; we set this later, after loading the data.
