@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DasboardModule.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="USSD\PurchaseResolver.cs" />
+    <Compile Include="USSD\RegistrationResolver.cs" />
     <Compile Include="USSD\SellResolver.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +93,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Views\sunburst.sshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Views\verify.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
