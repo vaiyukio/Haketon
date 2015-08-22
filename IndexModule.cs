@@ -11,7 +11,7 @@ namespace Haketon
     {
         public IndexModule()
         {
-            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=;Database=haketon;Encoding=UNICODE";
+            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=haketon;Encoding=UNICODE";
 
             Get["/"] = parameters =>
             {
@@ -22,7 +22,7 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(connectionString))
                 {
-                    var tests = conn.Query<User>("SELECT Id, Name FROM test");
+                    var tests = conn.Query<Registration>("SELECT Id, KtpNumber, PhoneNumber, Address FROM Registration").ToList();
                     var anu = tests.Count();
                 };
                 return View["index"];
