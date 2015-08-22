@@ -82,14 +82,15 @@ CREATE OR REPLACE VIEW orders_users AS
 ALTER TABLE orders_users
   OWNER TO postgres;
 
-CREATE TABLE commodity_types
+CREATE TABLE commoditytype
 (
-  id integer,
-  name character varying(255)
+  id integer NOT NULL,
+  name character varying,
+  CONSTRAINT commoditytype_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE commodity_types
+ALTER TABLE commoditytype
   OWNER TO postgres;
 

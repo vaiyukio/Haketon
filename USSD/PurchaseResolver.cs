@@ -17,6 +17,7 @@ namespace Haketon.USSD
         public static string FINISH = "Terima Kasih";
         private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=haketon;Encoding=UNICODE";
         //private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=haketon;Encoding=UNICODE";
+        private NpgsqlConnection conn;
 
         public PurchaseResolver(){}
 
@@ -41,38 +42,54 @@ namespace Haketon.USSD
                     response = READY_PERIOD;
                     break;
                 case 5:
-                    Order order = GetData(requestItems);
-                    response = string.Format("Pesanan Anda: Jenis Beras:{0}\n, Stok:{1}\n, Harga:{2}\n, Tanggal: {3}\n Terima Kasih", 0, 0, 0, 0);
+                    Order order = InsertOrder(requestItems);
+                    response = string.Format("Pesanan Anda: Jenis Beras:{0}\n, Stok:{1}\n, Harga:{2}\n, Tanggal: {3}\n Terima Kasih", GetCommodityType(order.CommodityType).Name, order.Amount, order.Price, order.Date);
                     break;
             }
 
             return response;
         }
 
-        public Order GetData(string[] requestItems)
+        private Order InsertOrder(string[] requestItems)
         {
+
             Order order = new Order();
+            string query = "INSERT INTO Order(fkUserId, CommodityType, Price,Amount, OrderType, Date, fkMatchingOrderId) VALUES(@fkUserId, @CommodityType, @Price, @Amount, @OrderType, @Date, @fkMatchingOrderId)";
+           
             long commodityTypeId = long.Parse(requestItems[1]);
             long amount = long.Parse(requestItems[2]);
             long price = long.Parse(requestItems[3]);
             int dateToGo = int.Parse(requestItems[4]);
-
-            using (var conn = new NpgsqlConnection(connectionString))
+           
+            using (conn = new NpgsqlConnection(connectionString))
             {
-                conn.Open();
-                CommodityType commodityType = conn.Query<CommodityType>(string.Format("SELECT Id, Name FROM CommodityType WHERE Id = {0}", commodityTypeId))
-                    .FirstOrDefault();
-
-                order.CommodityType = commodityType.Id;
+                order.fkUserId = 1;
+                order.CommodityType = commodityTypeId;
                 order.Price = price;
+                order.Amount = amount;
+                order.OrderType = "Purchase";
+                order.Date = CalculateDate(dateToGo);
+                order.fkMatchingOrderId = 0;
+                conn.Execute(query, order);
             }
 
             return order;
         }
 
-        private DateTime CalculateDate()
+        private CommodityType GetCommodityType(long commodityTypeId)
         {
-            return new DateTime();
+            CommodityType commodityType =
+                       conn.Query<CommodityType>(string.Format("SELECT Id, Name FROM CommodityType WHERE Id = {0}", commodityTypeId))
+                       .FirstOrDefault();
+
+            return commodityType;
+        }
+
+        private DateTime CalculateDate(int dateToGo)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            return currentDate;
         }
     }
 }
