@@ -14,22 +14,25 @@
 	<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
-			<form>
+			<form action="/verify" method="POST">
+			  <input type="hidden" name="Id" value="@Model.Id">
+			  <input type="hidden" name="Longitude" value="3">
+			  <input type="hidden" name="Latitude" value="5">
 			  <div class="form-group">
 				<label for="name">Nama</label>
-				<input type="text" class="form-control" id="name" placeholder="Nama" value="@Model.Name">
+				<input type="text" name="Name" class="form-control" id="name" placeholder="Nama" value="@Model.Name">
 			  </div>
 			  <div class="form-group">
 				<label for="number">Nomor Telepon</label>
-				<input type="text" class="form-control" id="number" placeholder="Nomor Telepon" value="@Model.PhoneNumber">
+				<input type="text" name="PhoneNumber" class="form-control" id="number" placeholder="Nomor Telepon" value="@Model.PhoneNumber">
 			  </div>
 			  <div class="form-group">
 				<label for="ktp">Nomor KTP</label>
-				<input type="text" class="form-control" id="ktp" placeholder="Nomor KTP" value="@Model.KtpNumber">
+				<input type="text" name="KtpNumber" class="form-control" id="ktp" placeholder="Nomor KTP" value="@Model.KtpNumber">
 			  </div>
 			  <div class="form-group">
 				<label for="address">Alamat</label>
-				<textarea class="form-control" id="address" placeholder="Alamat">@Model.Address</textarea>
+				<textarea class="form-control" name="Address" id="address" placeholder="Alamat">@Model.Address</textarea>
 			  </div>
 			  <button type="submit" class="btn btn-default">Approve</button>
 			</form>
