@@ -5,6 +5,7 @@ using System.Text;
 using Nancy;
 using Npgsql;
 using Dapper;
+using Haketon.Models;
 
 namespace Haketon
 {
@@ -29,7 +30,20 @@ namespace Haketon
 
             Get["/verify"] = parameters =>
             {
-                return View["verifylist"];
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var datas = conn.Query<Registration>("select * from Registrations where IsVerified <> true").ToList();
+                    return View["verifylist", datas];
+                };
+            };
+
+            Get["/verify/{id}"] = parameters =>
+            {
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var data = conn.Query<Registration>("select * from Registrations where IsVerified <> true and Id = @Id", new { Id = parameters.id }).FirstOrDefault();
+                    return View["verify", data];
+                };
             };
 
         }

@@ -4,14 +4,6 @@
     <meta charset="utf-8" />
     <title>Haketon</title>
 
-	<style type="text/css">
-
-		body {
-			text-align: center;
-		}
-
-	</style>
-
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
@@ -25,19 +17,19 @@
 			<form>
 			  <div class="form-group">
 				<label for="name">Nama</label>
-				<input type="text" class="form-control" id="name" placeholder="Nama">
+				<input type="text" class="form-control" id="name" placeholder="Nama" value="@Model.Name">
 			  </div>
 			  <div class="form-group">
 				<label for="number">Nomor Telepon</label>
-				<input type="text" class="form-control" id="number" placeholder="Nomor Telepon">
+				<input type="text" class="form-control" id="number" placeholder="Nomor Telepon" value="@Model.PhoneNumber">
 			  </div>
 			  <div class="form-group">
 				<label for="ktp">Nomor KTP</label>
-				<input type="text" class="form-control" id="ktp" placeholder="Nomor KTP">
+				<input type="text" class="form-control" id="ktp" placeholder="Nomor KTP" value="@Model.KtpNumber">
 			  </div>
 			  <div class="form-group">
 				<label for="address">Alamat</label>
-				<textarea class="form-control" id="address" placeholder="Alamat"></textarea>
+				<textarea class="form-control" id="address" placeholder="Alamat">@Model.Address</textarea>
 			  </div>
 			  <button type="submit" class="btn btn-default">Approve</button>
 			</form>
