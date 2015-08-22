@@ -12,7 +12,7 @@ namespace Haketon
         {
             Get["/sunburst"] = parameters =>
             {
-                return View["sunburst"];
+                return View["sunburst", "bro"];
             };
         }
     }
