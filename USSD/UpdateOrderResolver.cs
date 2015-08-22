@@ -77,9 +77,15 @@ namespace Haketon.USSD
             foreach (KeyValuePair<string, long> field in fields)
             {
                 if (field.Value > 0)
-                    query += string.Format("{0} = {1} ", field.Key, field.Value);
+                {
+                    if (field.Key == "orderdate")
+                        query += string.Format("{0} = '{1}', ", field.Key, DateTime.Now);
+                    else
+                        query += string.Format("{0} = {1}, ", field.Key, field.Value);
+                }
             }
 
+            query = query.Substring(0, query.Length - 2);
             query += string.Format("WHERE id = {0}", orderId);
             conn.Execute(query);
 

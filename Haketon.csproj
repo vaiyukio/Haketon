@@ -87,6 +87,7 @@
     <Compile Include="USSD\PurchaseResolver.cs" />
     <Compile Include="USSD\RegistrationResolver.cs" />
     <Compile Include="USSD\SellResolver.cs" />
+    <Compile Include="USSD\TransactionResolver.cs" />
     <Compile Include="USSD\UpdateOrderResolver.cs" />
   </ItemGroup>
   <ItemGroup>
