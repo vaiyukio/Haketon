@@ -8,7 +8,7 @@ using Dapper;
 
 namespace Haketon
 {
-    class DashboardModule : NancyModule
+    public class DashboardModule : NancyModule
     {
         public DashboardModule()
         {
@@ -26,6 +26,12 @@ namespace Haketon
             {
                 return View["sunburst", "bro"];
             };
+
+            Get["/verify"] = parameters =>
+            {
+                return View["verifylist"];
+            };
+
         }
     }
 }
