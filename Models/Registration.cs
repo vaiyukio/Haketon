@@ -12,5 +12,6 @@ namespace Haketon.Models
         public String KtpNumber { get; set; }
         public String PhoneNumber { get; set; }
         public String Address { get; set; }
+        public bool IsVerified { get; set; }
     }
 }
