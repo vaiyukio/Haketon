@@ -63,3 +63,21 @@ WITH (
 );
 ALTER TABLE users
   OWNER TO postgres;
+
+  
+CREATE OR REPLACE VIEW orders_users AS 
+ SELECT orders.id,
+    orders.fkuserid,
+    orders.commoditytype,
+    orders.amount,
+    orders.price,
+    orders.orderdate,
+    orders.fkmatchingorderid,
+    users.id AS userid,
+    users.longitude,
+    users.latitude
+   FROM orders
+     JOIN users ON orders.fkuserid = users.id;
+
+ALTER TABLE orders_users
+  OWNER TO postgres;
