@@ -10,6 +10,10 @@
             {
                 return View["index"];
             };
+            Get["/verify"] = parameters =>
+            {
+                return View["verify"];
+            };
         }
     }
 }
