@@ -24,6 +24,17 @@ namespace Haketon
                 };
                 
             };
+
+            Get["/dashboard"] = parameters =>
+            {
+                using (var conn = new NpgsqlConnection(connectionString))
+                {
+                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || order_type || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var data = datas[0];
+                    return View["dashboard", data];
+                };
+
+            };
         }
     }
 }
