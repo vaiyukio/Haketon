@@ -56,6 +56,14 @@ namespace Haketon.USSD
             return response;
         }
 
+        public User GetUser(string phoneNumber)
+        {
+            User user = new User();
+            string query = string.Format("SELECT id,name,ktpnumber,phonenumber,address,longitude,latitude FROM users WHERE phonenumber = '{0}'", phoneNumber);
+            user = conn.Query<User>(query).FirstOrDefault();
+            return user;
+        }
+
         private Registration InsertRegistration(string[] requestItems)
         {
             Registration registration = new Registration();
