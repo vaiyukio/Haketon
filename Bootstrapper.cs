@@ -9,10 +9,13 @@
         // by overriding the various methods and properties.
         // For more information https://github.com/NancyFx/Nancy/wiki/Bootstrapper
 
-        protected override void ConfigureConventions(NancyConventions nancyConventions)
+        protected override void ConfigureConventions(NancyConventions conventions)
         {
-            base.ConfigureConventions(nancyConventions);
-        }
+            base.ConfigureConventions(conventions);
 
+            conventions.StaticContentsConventions.Add(
+                StaticContentConventionBuilder.AddDirectory("scripts", @"Scripts")
+            );
+        }
     }
 }
