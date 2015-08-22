@@ -10,12 +10,10 @@ namespace Haketon.USSD
 {
     public class PurchaseResolver
     {
-        public static string COMMODITY_TYPE = "Masukkan jenis beras yang ingin anda jual";
-        public static string STOCK = "Masukkan dalam KG stok beras anda";
-        public static string PRICE = "Masukkan Harga Jual per KG";
-        public static string READY_PERIOD = "dalam berapa minggu kedepan anda membutuhkan beras";
-        public static string FINISH = "Terima Kasih";
-        
+        public static string COMMODITY_TYPE_MESSAGE = "Masukkan jenis beras yang ingin anda jual";
+        public static string STOCK_MESSAGE = "Masukkan dalam KG stok beras anda";
+        public static string PRICE_MESSAGE = "Masukkan Harga Jual per KG";
+        public static string NEEDED_PERIOD_MESSAGE = "dalam berapa minggu kedepan anda membutuhkan beras";
         //private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=haketon;Encoding=UNICODE";
         private NpgsqlConnection conn;
 
@@ -24,7 +22,7 @@ namespace Haketon.USSD
             conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING);
         }
 
-        public string GetMessage(string clientRequest)
+        public string GetResponse(string clientRequest)
         {
             string[] requestItems = clientRequest.Split('*');
             int requestItemLength = requestItems.Length;
@@ -33,16 +31,16 @@ namespace Haketon.USSD
             switch (requestItemLength)
             {
                 case 1:
-                    response = COMMODITY_TYPE;
+                    response = COMMODITY_TYPE_MESSAGE;
                     break;
                 case 2:
-                    response = STOCK;
+                    response = STOCK_MESSAGE;
                     break;
                 case 3:
-                    response = PRICE;
+                    response = PRICE_MESSAGE;
                     break;
                 case 4:
-                    response = READY_PERIOD;
+                    response = NEEDED_PERIOD_MESSAGE;
                     break;
                 case 5:
                     Order order = InsertOrder(requestItems);
@@ -72,7 +70,7 @@ namespace Haketon.USSD
             order.Date = CalculateDate(dateToGo);
             order.fkMatchingOrderId = 0;
            
-            conn.Execute(query, order);
+            //conn.Execute(query, order);
 
             return order;
         }
