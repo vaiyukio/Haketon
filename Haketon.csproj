@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DashboardModule.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />
@@ -91,6 +92,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Views\sunburst.sshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Views\verify.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -27,7 +27,6 @@ namespace Haketon
                 };
                 return View["index"];
             };
-
         }
     }
 }
