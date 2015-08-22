@@ -46,5 +46,11 @@ namespace Haketon.USSD
 
             return result;
         }
+
+        public void GetData(string message)
+        {
+            string[] data = message.Split('*');
+
+        }
     }
 }
