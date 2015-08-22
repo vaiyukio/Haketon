@@ -1,7 +1,7 @@
-﻿namespace Haketon
-{
-    using Nancy;
+﻿using Nancy;
 
+namespace Haketon
+{
     public class Bootstrapper : DefaultNancyBootstrapper
     {
         // The bootstrapper enables you to reconfigure the composition of the framework,
