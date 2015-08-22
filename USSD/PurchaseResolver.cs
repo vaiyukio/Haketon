@@ -10,7 +10,7 @@ namespace Haketon.USSD
 {
     public class PurchaseResolver
     {
-        public static string COMMODITY_TYPE_MESSAGE = "Masukkan jenis beras yang ingin anda jual\n 1. Beras\n 2. Gabah Kering Giling\n 3.Gabah Kering Panen";
+        public static string COMMODITY_TYPE_MESSAGE = "Masukkan jenis beras yang ingin anda beli\n 1. Beras\n 2. Gabah Kering Giling\n 3.Gabah Kering Panen";
         public static string STOCK_MESSAGE = "Masukkan dalam KG stok beras anda";
         public static string PRICE_MESSAGE = "Masukkan Harga Jual per KG";
         public static string NEEDED_PERIOD_MESSAGE = "dalam berapa minggu kedepan anda membutuhkan beras";
@@ -44,7 +44,7 @@ namespace Haketon.USSD
                     break;
                 case 5:
                     Order order = InsertOrder(requestItems);
-                    response = string.Format("Pesanan Anda: Jenis:{0}\n, Stok:{1}Kg\n, Harga:Rp.{2}\n, Tanggal: {3}\n Terima Kasih", GetCommodityType(order.CommodityType).Name, order.Amount, order.Price, order.Date);
+                    response = string.Format("Pesanan Anda: Jenis:{0}\n, Stok:{1}Kg\n, Harga:Rp.{2}\n, Tanggal Dibutuhkan: {3}\n Terima Kasih", GetCommodityType(order.CommodityType).Name, order.Amount, order.Price, order.Date);
                     break;
             }
 

@@ -8,28 +8,27 @@ namespace Haketon
 {
     public class MainModule : NancyModule
     {
-        private bool isRegistered = true;
+        private bool isRegistered = false;
         private RegistrationResolver registrationResolver;
         private PurchaseResolver purchaseResolver;
         private SellResolver sellResolver;
 
         public MainModule()
         {
-            Get["/ussd"] = parameters =>
+            Get["/ussd/"] = parameters =>
             {
                 registrationResolver = new RegistrationResolver();
-                
+               
                 string response = null;
                 string phoneNumber = this.Request.Query["n"];
                 string clientRequest = this.Request.Query["m"];
-
                 isRegistered = registrationResolver.AuthorizeUser(phoneNumber);
 
-                if (!isRegistered && clientRequest == null)
+                if (!isRegistered && (!clientRequest.StartsWith("0") || string.IsNullOrEmpty(clientRequest)))
                     return ApplicationConfig.REGISTER_MESSAGE;
 
-                if (string.IsNullOrEmpty(clientRequest))
-                    return ApplicationConfig.MAIN_MESSAGE ;
+                else if (isRegistered && string.IsNullOrEmpty(clientRequest))
+                    return ApplicationConfig.MAIN_MESSAGE;
 
                 response = USSDResolver(clientRequest);
                 return response;
@@ -72,7 +71,7 @@ namespace Haketon
         private string SellResolver(string clientRequest)
         {
             sellResolver = new USSD.SellResolver();
-            return sellResolver.GetMessage(clientRequest);
+            return sellResolver.GetResponse(clientRequest);
         }
 
         private string PurchaseResolver(string clientRequest)
