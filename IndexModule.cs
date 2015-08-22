@@ -11,7 +11,7 @@ namespace Haketon
     {
         public IndexModule()
         {
-            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=haketon;Encoding=UNICODE";
+            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=haketon;Encoding=UNICODE";
 
             Get["/"] = parameters =>
             {

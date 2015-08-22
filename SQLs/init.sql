@@ -64,7 +64,7 @@ WITH (
 ALTER TABLE users
   OWNER TO postgres;
 
-  
+
 CREATE OR REPLACE VIEW orders_users AS 
  SELECT orders.id,
     orders.fkuserid,
@@ -81,3 +81,15 @@ CREATE OR REPLACE VIEW orders_users AS
 
 ALTER TABLE orders_users
   OWNER TO postgres;
+
+CREATE TABLE commodity_types
+(
+  id integer,
+  name character varying(255)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE commodity_types
+  OWNER TO postgres;
+

@@ -59,10 +59,11 @@ namespace Haketon.USSD
 
             using (var conn = new NpgsqlConnection(connectionString))
             {
-                var commodityType = conn.Query<CommodityType>(string.Format("SELECT CommodityName FROM CommodityType WHERE Id = {0}", commodityTypeId))
+                conn.Open();
+                CommodityType commodityType = conn.Query<CommodityType>(string.Format("SELECT Id, Name FROM CommodityType WHERE Id = {0}", commodityTypeId))
                     .FirstOrDefault();
 
-                order.CommodityType = commodityTypeId;
+                order.CommodityType = commodityType.Id;
                 order.Price = price;
             }
 

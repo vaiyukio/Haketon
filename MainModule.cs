@@ -16,7 +16,7 @@ namespace Haketon
             {
                 string response = null;
                 string phoneNumber = this.Request.Query["n"];
-                string clientRequest = this.Request.Query["m"];
+                string clientRequest = "1*1*400*5000*4";//this.Request.Query["m"];
 
                 if (!isRegistered)
                     return ApplicationConfig.registerMessage;
