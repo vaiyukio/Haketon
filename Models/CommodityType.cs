@@ -8,6 +8,6 @@ namespace Haketon.Models
     public class CommodityType
     {
         public long Id { get; set; }
-        public String CommodityName { get; set; }
+        public String Name { get; set; }
     }
 }
