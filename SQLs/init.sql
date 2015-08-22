@@ -33,7 +33,7 @@ CREATE TABLE registrations
   ktpnumber character varying,
   phonenumber character varying,
   address character varying,
-  isverified bit(1),
+  isverified boolean,
   CONSTRAINT registrations_pkey PRIMARY KEY (id)
 )
 WITH (
