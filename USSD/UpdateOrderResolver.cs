@@ -97,10 +97,11 @@ namespace Haketon.USSD
         private string GetUpdateListResponse(string clientRequest, User user)
         {
             string response = "";
- 
-            List<Order> orders = conn.Query<Order>(string.Format("SELECT id,fkuserid,commoditytype,amount,price,orderdate,fkmatchingorderid,ordertype FROM orders WHERE fkuserid = {0}", user.Id))
-                    .ToList<Order>();
 
+            List<Order> orders = conn.Query<Order>(string.Format("SELECT id,fkuserid,commoditytype,amount,price,orderdate,fkmatchingorderid,ordertype FROM orders WHERE fkuserid = {0}", user.Id))
+                .OrderBy(e => e.Id)
+                .ToList<Order>();
+   
             foreach (Order orderItem in orders)
             {
                 response += string.Format("{0}. {1}, {2}, {3}Kg Rp.{4}, {5} Minggu\n", orderItem.Id, orderItem.OrderType,
