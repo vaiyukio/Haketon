@@ -9,7 +9,7 @@ namespace Haketon
     {
         private bool isRegistered = true;
 
-        public MainModule(IDBContext dbContext)
+        public MainModule()
         {
             Get["/ussd/"] = x =>
             {
