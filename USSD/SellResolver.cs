@@ -20,7 +20,7 @@ namespace Haketon.USSD
             conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING);
         }
 
-        public string GetResponse(string clientRequest)
+        public string GetResponse(string clientRequest, User user)
         {
             string[] requestItems = clientRequest.Split('*');
             int requestItemLength = requestItems.Length;
@@ -40,7 +40,7 @@ namespace Haketon.USSD
                     response = READY_PERIOD_MESSAGE;
                     break;
                 case 5:
-                    Order order = InsertOrder(requestItems);
+                    Order order = InsertOrder(requestItems, user);
                     response = string.Format("Data Jualan Anda: Jenis:{0}\n, Stok:{1}Kg\n, Harga:Rp.{2}\n, Tanggal Tersedia: {3}\n Terima Kasih", GetCommodityType(order.CommodityType).Name, order.Amount, order.Price, order.Date);
                     break;
             }
@@ -48,7 +48,7 @@ namespace Haketon.USSD
             return response;
         }
 
-        private Order InsertOrder(string[] requestItems)
+        private Order InsertOrder(string[] requestItems, User user)
         {
 
             Order order = new Order();
@@ -58,7 +58,7 @@ namespace Haketon.USSD
             long price = long.Parse(requestItems[3]);
             int dateToGo = int.Parse(requestItems[4]);
 
-            order.fkUserId = 1;
+            order.fkUserId = user.Id;
             order.CommodityType = commodityTypeId;
             order.Price = price;
             order.Amount = amount;
