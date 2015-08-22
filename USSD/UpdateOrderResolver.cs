@@ -57,29 +57,41 @@ namespace Haketon.USSD
         private string UpdateOrder(string clientRequest)
         {
             string[] requestItems = clientRequest.Split('*');
+           
             long orderId = long.Parse(requestItems[1]);
             long commodityTypeId = long.Parse(requestItems[2]);
             long amount = long.Parse(requestItems[3]);
             long price = long.Parse(requestItems[4]);
             int availabilityWeek = int.Parse(requestItems[5]);
+
+            Dictionary<string, long> fields = new Dictionary<string, long>()
+             { 
+                {"commoditytype", commodityTypeId},
+                {"amount", amount},
+                {"price", price},
+                {"orderdate", availabilityWeek}
+             };
             
             string query = "UPDATE orders SET ";
 
-            if (commodityTypeId == 0 && amount == 0 && price == 0 && availabilityWeek == 0)
-                return "Anda tidak melakukan update order";
-            else if (amount == 0 && price == 0 && availabilityWeek == 0)
-                query += string.Format("commoditytype = {0} ", commodityTypeId);
-            else if(price == 0 && availabilityWeek == 0)
-                query += string.Format("commoditytype = {0},  amount = {1} ", commodityTypeId, amount);
-            else if(availabilityWeek == 0)
-                query += string.Format("commoditytype = {0},  amount = {1},  price = {2} ", commodityTypeId, amount, price);
-            else
-                query += string.Format("commoditytype = {0},  amount = {1},  price = {2},  orderdate = '{3}' ", commodityTypeId, amount, price, DateTime.Now);
+            foreach (KeyValuePair<string, long> field in fields)
+            {
+                if (field.Value > 0)
+                {
+                    if (field.Key == "orderdate")
+                        query += string.Format("{0} = '{1}', ", field.Key, DateTime.Now);
+                    else
+                        query += string.Format("{0} = {1}, ", field.Key, field.Value);
+                }
+            }
 
+            query = query.Substring(0, query.Length - 2);
             query += string.Format("WHERE id = {0}", orderId);
             conn.Execute(query);
-            
-            return string.Format("Data Update Anda:\n Jenis: {0}, Stok: {1}, Harga: {2}, Ketersediaan: {3}", GetCommodityType(commodityTypeId).Name, amount, price, DateTime.Now);
+
+            Order order = conn.Query<Order>(string.Format("SELECT commoditytype, price, amount, orderdate FROM orders WHERE id ={0}", orderId)).FirstOrDefault();
+
+            return string.Format("Data Update Anda:\n Jenis: {0}, Stok: {1}, Harga: {2}, Ketersediaan: {3}", GetCommodityType(order.CommodityType).Name, order.Amount, order.Price, order.Date);
         }
 
         private string GetCommodityTypeResponse(string clientRequest)
