@@ -94,6 +94,9 @@
     </None>
     <None Include="packages.config" />
     <None Include="Views\dashboard.sshtml" />
+    <None Include="Views\graphics.sshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Views\sunburst.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
