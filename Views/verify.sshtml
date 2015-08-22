@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
 </head>
@@ -16,8 +17,8 @@
 		<div class="col-md-3">
 			<form action="/verify" method="POST">
 			  <input type="hidden" name="Id" value="@Model.Id">
-			  <input type="hidden" name="Longitude" value="3">
-			  <input type="hidden" name="Latitude" value="5">
+			  <input type="hidden" name="Longitude" value="0">
+			  <input type="hidden" name="Latitude" value="0">
 			  <div class="form-group">
 				<label for="name">Nama</label>
 				<input type="text" name="Name" class="form-control" id="name" placeholder="Nama" value="@Model.Name">
@@ -55,9 +56,11 @@
 		var popup = L.popup();
 
 		function onMapClick(e) {
+			$("[name='Longitude']").val(e.latlng.lng);
+			$("[name='Latitude']").val(e.latlng.lat);
 			popup
 				.setLatLng(e.latlng)
-				.setContent("You clicked the map at " + e.latlng.toString())
+				.setContent($("[name='Name']").val())
 				.openOn(map);
 		}
 
