@@ -9,9 +9,11 @@ namespace Haketon
     public class MainModule : NancyModule
     {
         private bool isRegistered = false;
+        private string phoneNumber = null;
         private RegistrationResolver registrationResolver;
         private PurchaseResolver purchaseResolver;
         private SellResolver sellResolver;
+        private UpdateOrderResolver updateOrderResolver;
 
         public MainModule()
         {
@@ -20,7 +22,7 @@ namespace Haketon
                 registrationResolver = new RegistrationResolver();
                
                 string response = null;
-                string phoneNumber = this.Request.Query["n"];
+                phoneNumber = this.Request.Query["n"];
                 string clientRequest = this.Request.Query["m"];
                 isRegistered = registrationResolver.AuthorizeUser(phoneNumber);
 
@@ -53,7 +55,7 @@ namespace Haketon
                     result = SellResolver(clientRequest);
                     break;
                 case "3":
-                    result = UpdateSellResolver(clientRequest);
+                    result = UpdateOrderResolver(clientRequest);
                     break;
                 case "4":
                     result = UpdatePurchaseResolver(clientRequest);
@@ -70,19 +72,21 @@ namespace Haketon
 
         private string SellResolver(string clientRequest)
         {
-            sellResolver = new USSD.SellResolver();
+            sellResolver = new SellResolver();
             return sellResolver.GetResponse(clientRequest);
         }
 
         private string PurchaseResolver(string clientRequest)
         {
-            purchaseResolver = new USSD.PurchaseResolver();
+            purchaseResolver = new PurchaseResolver();
             return purchaseResolver.GetResponse(clientRequest);
         }
 
-        private string UpdateSellResolver(string clientRequest)
+        private string UpdateOrderResolver(string clientRequest)
         {
-            return "";
+            updateOrderResolver = new UpdateOrderResolver();
+            User user = registrationResolver.GetUser(phoneNumber);
+            return updateOrderResolver.GetResponse(clientRequest, user);
         }
 
         private string UpdatePurchaseResolver(string clientRequest)
