@@ -36,6 +36,12 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Dapper.1.42\lib\net40\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +60,9 @@
       <HintPath>packages\Npgsql.2.2.5\lib\net40\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Quartz">
+      <HintPath>packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -65,6 +74,7 @@
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="IndexModule.cs" />
+    <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Registration.cs" />
@@ -76,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="job_scheduling_data_2_0.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Views\verify.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
