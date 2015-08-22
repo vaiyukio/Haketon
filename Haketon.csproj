@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="DasboardModule.cs" />
+    <Compile Include="DashboardModule.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />

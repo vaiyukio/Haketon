@@ -10,6 +10,10 @@ namespace Haketon
     {
         public DashboardModule()
         {
+            Get["/sunburst"] = parameters =>
+            {
+                return View["sunburst", "bro"];
+            };
         }
     }
 }
