@@ -8,21 +8,27 @@ namespace Haketon
 {
     public class MainModule : NancyModule
     {
-        private bool isRegistered = true;
+        private bool isRegistered = false;
+        private RegistrationResolver registrationResolver;
+        private PurchaseResolver purchaseResolver;
+        private SellResolver sellResolver;
 
         public MainModule()
         {
-            Get["/ussd"] = parameters =>
+            Get["/ussd/"] = parameters =>
             {
+                registrationResolver = new RegistrationResolver();
+               
                 string response = null;
                 string phoneNumber = this.Request.Query["n"];
                 string clientRequest = this.Request.Query["m"];
+                isRegistered = registrationResolver.AuthorizeUser(phoneNumber);
 
-                if (!isRegistered)
+                if (!isRegistered && (!clientRequest.StartsWith("0") || string.IsNullOrEmpty(clientRequest)))
                     return ApplicationConfig.REGISTER_MESSAGE;
 
-                if (string.IsNullOrEmpty(clientRequest))
-                    return ApplicationConfig.MAIN_MESSAGE ;
+                else if (isRegistered && string.IsNullOrEmpty(clientRequest))
+                    return ApplicationConfig.MAIN_MESSAGE;
 
                 response = USSDResolver(clientRequest);
                 return response;
@@ -37,33 +43,41 @@ namespace Haketon
 
             switch (type)
             {
+                case "0":
+                    result = RegistrationResolver(clientRequest);
+                    break;
                 case "1":
-                    result = this.PurchaseResolver(clientRequest);
+                    result = PurchaseResolver(clientRequest);
                     break;
                 case "2":
-                    result = this.SellResolver(clientRequest);
+                    result = SellResolver(clientRequest);
                     break;
                 case "3":
-                    result = this.UpdateSellResolver(clientRequest);
+                    result = UpdateSellResolver(clientRequest);
                     break;
                 case "4":
-                    result = this.UpdatePurchaseResolver(clientRequest);
+                    result = UpdatePurchaseResolver(clientRequest);
                     break;
             }
 
             return result;
         }
 
+        private string RegistrationResolver(string clientRequest)
+        {
+            return registrationResolver.GetResponse(clientRequest);
+        }
+
         private string SellResolver(string clientRequest)
         {
-            SellResolver sellResolver = new USSD.SellResolver();
-            return sellResolver.GetMessage(clientRequest);
+            sellResolver = new USSD.SellResolver();
+            return sellResolver.GetResponse(clientRequest);
         }
 
         private string PurchaseResolver(string clientRequest)
         {
-            PurchaseResolver purchaseResolver = new USSD.PurchaseResolver();
-            return purchaseResolver.GetMessage(clientRequest);
+            purchaseResolver = new USSD.PurchaseResolver();
+            return purchaseResolver.GetResponse(clientRequest);
         }
 
         private string UpdateSellResolver(string clientRequest)
