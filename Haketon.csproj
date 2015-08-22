@@ -73,16 +73,19 @@
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DasboardModule.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />
+    <Compile Include="Models\CommodityType.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="USSD\PurchaseResolver.cs" />
-    <Compile Include="SellResolver.cs" />
+    <Compile Include="USSD\RegistrationResolver.cs" />
+    <Compile Include="USSD\SellResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -90,7 +93,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Views\dashboard.sshtml">
+    <None Include="Views\dashboard.sshtml" />
+    <None Include="Views\sunburst.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\verify.sshtml">
@@ -105,6 +109,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\nancy-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sunburst.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sunburst.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SQLs\init.sql" />

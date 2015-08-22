@@ -9,6 +9,7 @@ CREATE TABLE orders
   commoditytype integer,
   amount integer,
   price integer,
+  order_type character varying,
   orderdate timestamp without time zone,
   fkmatchingorderid integer,
   CONSTRAINT orders_pkey PRIMARY KEY (id)
@@ -62,3 +63,34 @@ WITH (
 );
 ALTER TABLE users
   OWNER TO postgres;
+
+
+CREATE OR REPLACE VIEW orders_users AS 
+ SELECT orders.id,
+    orders.fkuserid,
+    orders.commoditytype,
+    orders.amount,
+    orders.price,
+    orders.orderdate,
+    orders.fkmatchingorderid,
+    users.id AS userid,
+    users.longitude,
+    users.latitude
+   FROM orders
+     JOIN users ON orders.fkuserid = users.id;
+
+ALTER TABLE orders_users
+  OWNER TO postgres;
+
+CREATE TABLE commoditytype
+(
+  id integer NOT NULL,
+  name character varying,
+  CONSTRAINT commoditytype_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE commoditytype
+  OWNER TO postgres;
+
