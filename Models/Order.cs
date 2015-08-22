@@ -15,5 +15,6 @@ namespace Haketon.Models
         public String OrderType { get; set; }
         public DateTime Date { get; set; }
         public long? fkMatchingOrderId { get; set; }
+        public bool IsMatchSearched { get; set; }
     }
 }

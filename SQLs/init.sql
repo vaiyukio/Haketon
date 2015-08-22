@@ -12,6 +12,7 @@ CREATE TABLE orders
   ordertype character varying,
   orderdate timestamp without time zone,
   fkmatchingorderid integer,
+  ismatchsearched boolean,
   CONSTRAINT orders_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -94,3 +95,20 @@ WITH (
 ALTER TABLE commoditytype
   OWNER TO postgres;
 
+-- Table: outboxes
+
+-- DROP TABLE outboxes;
+
+CREATE TABLE outboxes
+(
+  id serial NOT NULL,
+  phonenumber character varying,
+  message character varying,
+  isverified boolean,
+  CONSTRAINT outboxes_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE outboxes
+  OWNER TO postgres;
