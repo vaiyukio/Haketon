@@ -15,11 +15,14 @@ namespace Haketon.USSD
         public static string PRICE = "Masukkan Harga Jual per KG";
         public static string READY_PERIOD = "dalam berapa minggu kedepan anda membutuhkan beras";
         public static string FINISH = "Terima Kasih";
-        private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=root;Database=haketon;Encoding=UNICODE";
+        
         //private string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=haketon;Encoding=UNICODE";
         private NpgsqlConnection conn;
 
-        public PurchaseResolver(){}
+        public PurchaseResolver()
+        {
+            conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING);
+        }
 
         public string GetMessage(string clientRequest)
         {
@@ -60,18 +63,16 @@ namespace Haketon.USSD
             long amount = long.Parse(requestItems[2]);
             long price = long.Parse(requestItems[3]);
             int dateToGo = int.Parse(requestItems[4]);
+
+            order.fkUserId = 1;
+            order.CommodityType = commodityTypeId;
+            order.Price = price;
+            order.Amount = amount;
+            order.OrderType = "Purchase";
+            order.Date = CalculateDate(dateToGo);
+            order.fkMatchingOrderId = 0;
            
-            using (conn = new NpgsqlConnection(connectionString))
-            {
-                order.fkUserId = 1;
-                order.CommodityType = commodityTypeId;
-                order.Price = price;
-                order.Amount = amount;
-                order.OrderType = "Purchase";
-                order.Date = CalculateDate(dateToGo);
-                order.fkMatchingOrderId = 0;
-                conn.Execute(query, order);
-            }
+            conn.Execute(query, order);
 
             return order;
         }
