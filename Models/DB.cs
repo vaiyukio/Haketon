@@ -14,9 +14,10 @@ namespace Haketon.Models
 {
     public class DB : DbContext, IDBContext
     {
-        public DB() : base("PostgreSQLConnection") { }
+        public DB() { }
+        public DB(string connectionString) : base(connectionString) { }
 
-        public IDbSet<Test> Tests { get; set; }
+        public IDbSet<Registration> Registrations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {

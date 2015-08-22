@@ -1,15 +1,20 @@
-﻿namespace Haketon
+﻿using Haketon.Models;
+using Nancy;
+
+namespace Haketon
 {
-    using Nancy;
+
 
     public class IndexModule : NancyModule
     {
-        public IndexModule()
+        public IndexModule(IDBContext dbContext)
         {
             Get["/"] = parameters =>
             {
                 return View["index"];
             };
+
+           
         }
     }
 }

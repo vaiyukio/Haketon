@@ -9,7 +9,7 @@ namespace Haketon.Models
 {
     public interface IDBContext
     {
-        IDbSet<Test> Tests { get; set; }
+        IDbSet<Registration> Registrations { get; set; }
         DbEntityEntry Entry(object entity);
         int SaveChanges();
     }

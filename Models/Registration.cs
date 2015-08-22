@@ -7,8 +7,10 @@ using System.Text;
 
 namespace Haketon.Models
 {
-    public class Test : BaseEntity
+    public class Registration : BaseEntity
     {
-        public string Name { get; set; }
+        public String IdentityNumber { get; set; }
+        public String PhoneNumber { get; set; }
+        public String Address { get; set; }
     }
 }
