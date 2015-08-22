@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="ApplicationConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="DasboardModule.cs" />
+    <Compile Include="DashboardModule.cs" />
     <Compile Include="IndexModule.cs" />
     <Compile Include="Jobs\MatchingJob.cs" />
     <Compile Include="MainModule.cs" />
@@ -94,8 +94,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Views\dashboard.sshtml" />
+    <None Include="Views\dashboard.sshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Views\sunburst.sshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\verifylist.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Views\verify.sshtml">
@@ -112,6 +117,8 @@
     <Content Include="Content\nancy-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\sunburst.css" />
+    <Content Include="Content\sunburst.js" />
     <Content Include="SQLs\init.sql" />
     <Content Include="SQLs\Test.sql" />
   </ItemGroup>

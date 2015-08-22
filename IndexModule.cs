@@ -18,10 +18,6 @@ namespace Haketon
                 return View["index"];
             };
 
-            Get["/dashboard"] = parameters =>
-            {
-                return View["dashboard"];
-            };
 
             Get["/test"] = parameters =>
             {
