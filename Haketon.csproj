@@ -112,12 +112,6 @@
     <Content Include="Content\nancy-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\sunburst.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\sunburst.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="SQLs\init.sql" />
     <Content Include="SQLs\Test.sql" />
   </ItemGroup>

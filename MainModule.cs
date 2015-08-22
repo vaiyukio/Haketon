@@ -23,7 +23,7 @@ namespace Haketon
                 string phoneNumber = this.Request.Query["n"];
                 string clientRequest = this.Request.Query["m"];
 
-                isRegistered = false; //registrationResolver.AuthorizeUser(phoneNumber);
+                isRegistered = registrationResolver.AuthorizeUser(phoneNumber);
 
                 if (!isRegistered && clientRequest == null)
                     return ApplicationConfig.REGISTER_MESSAGE;

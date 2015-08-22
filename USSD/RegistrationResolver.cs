@@ -23,9 +23,9 @@ namespace Haketon.USSD
         public bool AuthorizeUser(string phoneNumber)
         {
             userPhoneNumber = phoneNumber;
-            User user = conn.Query<User>("SELECT Id Name, KtpNumber, PhoneNumber, Address, Longitude, Latitude FROM User WHERE PhoneNumber = @PhoneNumber", phoneNumber)
+            User user = conn.Query<User>(string.Format("SELECT id, name, ktpnumber, phonenumber, address, longitude, latitude FROM users WHERE phonenumber = '{0}'", phoneNumber))
                 .FirstOrDefault();
-                
+                 
             if (user == null)
                 return false;
 
@@ -49,7 +49,7 @@ namespace Haketon.USSD
                 case 3:
                     Registration registration = InsertRegistration(requestItems);
                     User user = InsertUser(registration);
-                    response = string.Format("Data Anda: No.HP: {0}\n No.KTP: {1}\n Alamat: {2}", user.KtpNumber, user.Address);
+                    response = string.Format("Data Anda: No.HP: {0}\n No.KTP: {1}\n Alamat: {2}", user.PhoneNumber, user.KtpNumber, user.Address);
                     break;
             }
 
@@ -59,11 +59,13 @@ namespace Haketon.USSD
         private Registration InsertRegistration(string[] requestItems)
         {
             Registration registration = new Registration();
-            registration.KtpNumber = requestItems[0];
+            registration.KtpNumber = requestItems[1];
             registration.PhoneNumber = userPhoneNumber;
-            registration.Address = requestItems[1];
+            registration.Address = requestItems[2];
             registration.IsVerified = true;
-            conn.Execute("INSERT INTO Registration (KtpNumber, PhoneNumber, Address) VALUES(@KtpNumber, @PhoneNumber, @Address)", registration);
+            string query = string.Format("INSERT INTO registrations(ktpnumber, phonenumber, address) VALUES('{0}','{1}','{2}')", registration.KtpNumber, registration.PhoneNumber, registration.Address);
+            
+            conn.Execute(query);
             return registration;
         }
 
@@ -73,7 +75,9 @@ namespace Haketon.USSD
             user.KtpNumber = registration.KtpNumber;
             user.PhoneNumber = registration.PhoneNumber;
             user.Address = registration.Address;
-            conn.Execute("INSERT INTO User(KtpNumber, PhoneNumber, Address)VALUES(@KtpNumber, @PhoneNumber, @Address)", user);
+            string query = string.Format("INSERT INTO users(ktpnumber, phonenumber, address) VALUES('{0}','{1}','{2}')", user.KtpNumber, user.PhoneNumber, user.Address);
+
+            conn.Execute(query);
             return user;
         }
     }
