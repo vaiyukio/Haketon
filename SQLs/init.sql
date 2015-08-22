@@ -9,6 +9,7 @@ CREATE TABLE orders
   commoditytype integer,
   amount integer,
   price integer,
+  order_type character varying,
   orderdate timestamp without time zone,
   CONSTRAINT orders_pkey PRIMARY KEY (id)
 )

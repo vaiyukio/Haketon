@@ -12,6 +12,7 @@ namespace Haketon.Models
         public long CommodityType { get; set; }
         public long Amount { get; set; }
         public long Price { get; set; }
+        public String OrderType { get; set; }
         public DateTime Date { get; set; }
     }
 }
