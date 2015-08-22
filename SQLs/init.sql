@@ -1,4 +1,4 @@
--- Table: orders
+  -- Table: orders
 
 -- DROP TABLE orders;
 
@@ -11,6 +11,7 @@ CREATE TABLE orders
   price integer,
   order_type character varying,
   orderdate timestamp without time zone,
+  fkmatchingorderid integer,
   CONSTRAINT orders_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -20,7 +21,8 @@ ALTER TABLE orders
   OWNER TO postgres;
 
 
--- Table: registrations
+
+  -- Table: registrations
 
 -- DROP TABLE registrations;
 
@@ -31,6 +33,7 @@ CREATE TABLE registrations
   ktpnumber character varying,
   phonenumber character varying,
   address character varying,
+  isverified bit(1),
   CONSTRAINT registrations_pkey PRIMARY KEY (id)
 )
 WITH (

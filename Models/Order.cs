@@ -14,5 +14,6 @@ namespace Haketon.Models
         public long Price { get; set; }
         public String OrderType { get; set; }
         public DateTime Date { get; set; }
+        public long? fkMatchingOrderId { get; set; }
     }
 }

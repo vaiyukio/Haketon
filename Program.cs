@@ -1,5 +1,8 @@
 ﻿using System;
 using Nancy.Hosting.Self;
+using Quartz;
+using Haketon.Jobs;
+using Quartz.Impl;
 
 namespace Haketon
 {
@@ -14,9 +17,25 @@ namespace Haketon
             {
                 host.Start();
                 Console.WriteLine("Your application is running on " + uri);
+
+                IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
+                scheduler.Start();
+
+                IJobDetail job = JobBuilder.Create<MatchingJob>().Build();
+
+                ITrigger trigger = TriggerBuilder.Create()
+                    .StartNow()
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInSeconds(10)
+                        .RepeatForever())
+                    .Build();
+
+                scheduler.ScheduleJob(job, trigger);
+
                 Console.WriteLine("Press any [Enter] to close the host.");
                 Console.ReadLine();
             }
+
         }
     }
 }
