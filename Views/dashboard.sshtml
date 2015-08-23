@@ -28,7 +28,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="map" class="col-md-9" style="height: 600px;"></div>
+		<div id="map" class="col-md-9" style="height: 100vh;"></div>
 	</div>
 	</div>
 
