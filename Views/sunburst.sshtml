@@ -24,8 +24,8 @@
     </div>
     <script type="text/javascript">
 		// Dimensions of sunburst.
-		var width = 450;
-		var height = 450;
+		var width = 350;
+		var height = 350;
 		var radius = Math.min(width, height) / 2;
 
 		// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
@@ -35,11 +35,11 @@
 
 		// Mapping of step names to colors.
 		var colors = {
-			"Beras": "#5687d1",
-			"Purchase": "#7b115c",
-			"Sell": "#de783b",
-			"GKG": "#6ab975",
-			"GKP": "#a173d1",
+			"Beras": "#3498db",
+			"Purchase": "#9b59b6",
+			"Sell": "#95a5a6",
+			"GKG": "#2cee71",
+			"GKP": "#e74c3c",
 			"end": "#bbbbbb"
 		};
 

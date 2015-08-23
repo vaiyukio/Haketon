@@ -14,11 +14,12 @@ namespace Haketon
     {
         public DashboardModule()
         {
+            const string sunburstQuery = "select  string_agg ( commoditytype.name || '-' || ordertype || ',' || amount , '\\n' )  from orders inner join commoditytype on orders.commoditytype = commoditytype.id";
             Get["/dashboard"] = parameters =>
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var datas =conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var datas = conn.Query<String>(sunburstQuery).ToList();
                     var data = datas[0];
                     return View["dashboard",data];
                 }
@@ -27,7 +28,7 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var datas = conn.Query<String>(sunburstQuery).ToList();
                     var data = datas[0];
                     return View["sunburst", data];
                 };
@@ -79,6 +80,15 @@ namespace Haketon
                 {
                     var data = conn.Query<OrderUser>("select * from Orders_Users where Id > @Start", new { Start = parameters.start }).ToList();
                     return JsonConvert.SerializeObject(data);
+                };
+            };
+
+            Get["/sunburstdata"] = parameters =>
+            {
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var datas = conn.Query<String>(sunburstQuery).ToList();
+                    return datas[0];
                 };
             };
 
