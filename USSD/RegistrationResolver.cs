@@ -48,8 +48,7 @@ namespace Haketon.USSD
                     break;
                 case 3:
                     Registration registration = InsertRegistration(requestItems);
-                    User user = InsertUser(registration);
-                    response = string.Format("Data Anda: No.HP: {0}\n No.KTP: {1}\n Alamat: {2}", user.PhoneNumber, user.KtpNumber, user.Address);
+                    response = string.Format("Data Anda: No.HP: {0}\n No.KTP: {1}\n Alamat: {2}", registration.PhoneNumber, registration.KtpNumber, registration.Address);
                     break;
             }
 
