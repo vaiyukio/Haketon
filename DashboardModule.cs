@@ -33,7 +33,7 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var datas = conn.Query<Registration>("select * from Registrations where IsVerified <> true").ToList();
+                    var datas = conn.Query<Registration>("select * from Registrations where IsVerified <> true or IsVerified is null").ToList();
                     return View["verifylist", datas];
                 };
             };
@@ -42,7 +42,7 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var data = conn.Query<Registration>("select * from Registrations where IsVerified <> true and Id = @Id", new { Id = parameters.id }).FirstOrDefault();
+                    var data = conn.Query<Registration>("select * from Registrations where (IsVerified <> true or IsVerified is null) and Id = @Id", new { Id = parameters.id }).FirstOrDefault();
                     return View["verify", data];
                 };
             };
