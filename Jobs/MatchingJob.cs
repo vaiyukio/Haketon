@@ -51,6 +51,8 @@ namespace Haketon.Jobs
                     foreach(var matchedOrder in matchedOrders)
                     {
                         String message = "Kami menemukan order yang cocok. {0} {1} {2} sebesar {3} kg dengan harga Rp. {4}";
+                        conn.Execute("insert into orders_matches(first_id, second_id) values (@FirstId, @SecondId)", new { FirstId = order.Id, SecondId = matchedOrder.Id });
+                        conn.Execute("insert into orders_matches(first_id, second_id) values (@FirstId, @SecondId)", new { FirstId = matchedOrder.Id, SecondId = order.Id });
                         var verb = order.OrderType == "Purchase" ? "menjual" : "membeli";
                         var commodity = conn.Query<String>("select Name from CommodityType where Id = @Id", new { Id = order.CommodityType }).FirstOrDefault();
                         var user = conn.Query<User>("select Name, PhoneNumber from Users where Id = @Id", new { Id = matchedOrder.fkUserId }).FirstOrDefault();

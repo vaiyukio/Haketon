@@ -20,6 +20,12 @@
 				@Partial['sunburst']
 				<br />
 			</div>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search" />
+				<span class="input-group-addon">
+					<i class="fa fa-search"></i>
+				</span>
+			</div>
 			<table class="table table-condensed table-dashboard">
 				<thead>
 					<tr>

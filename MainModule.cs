@@ -8,6 +8,7 @@ namespace Haketon
 {
     public class MainModule : NancyModule
     {
+        private TransactionResolver transactionResolver;
         private bool isRegistered = false;
         private RegistrationResolver registrationResolver;
         private PurchaseResolver purchaseResolver;
@@ -59,7 +60,7 @@ namespace Haketon
                     result = UpdateOrderResolver(clientRequest, user);
                     break;
                 case "4":
-                    result = "";
+                    result = TransactionResolver(clientRequest, user);
                     break;
             }
 
@@ -77,6 +78,12 @@ namespace Haketon
             return sellResolver.GetResponse(clientRequest, user);
         }
 
+        private string TransactionResolver(string clientRequest, User user)
+        {
+            transactionResolver = new TransactionResolver();
+            return transactionResolver.GetResponse(clientRequest, user);
+        }
+
         private string PurchaseResolver(string clientRequest, User user)
         {
             purchaseResolver = new PurchaseResolver();
@@ -88,5 +95,8 @@ namespace Haketon
             updateOrderResolver = new UpdateOrderResolver();
             return updateOrderResolver.GetResponse(clientRequest, user);
         }
+
+        
     }
 }
+
