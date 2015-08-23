@@ -18,15 +18,19 @@ namespace Haketon
             {
                 using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
                 {
-                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var datas =conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
                     var data = datas[0];
-                    return View["dashboard", data];
-                };
-
+                    return View["dashboard",data];
+                }
             };
             Get["/sunburst"] = parameters =>
             {
-                return View["sunburst", "bro"];
+                using (var conn = new NpgsqlConnection(ApplicationConfig.CONNECTION_STRING))
+                {
+                    var datas = conn.Query<String>("select string_agg( commoditytype.name || '-' || ordertype || ',' || price , '\\n') from orders inner join commoditytype on orders.commoditytype = commoditytype.id;").ToList();
+                    var data = datas[0];
+                    return View["sunburst", data];
+                };
             };
 
             Get["/verify"] = parameters =>
