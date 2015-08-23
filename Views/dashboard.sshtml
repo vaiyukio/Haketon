@@ -58,7 +58,6 @@
 		var popup = L.popup();
 
 		function onMapClick(e) {
-			console.log(e.latlng);
 			popup
 				.setLatLng(e.latlng)
 				.setContent("You clicked the map at " + e.latlng.toString())
@@ -97,7 +96,7 @@
 			var verb = order.OrderType == "Purchase" ? "Beli" : "Jual";
 			p
 				.setLatLng(L.latLng(order.Latitude, order.Longitude))
-				.setContent("Beli " + order.CommodityName +", "+ order.UserName +", " + order.Amount +" Kg, Rp. "+order.Price)
+				.setContent(verb+" " + order.CommodityName +", "+ order.UserName +", " + order.Amount +" Kg, Rp. "+order.Price)
 				.openOn(map);
 			map.setView([order.Latitude, order.Longitude], 9);
 			$(".table-dashboard tbody").prepend($("<tr><td>"+verb+"</td><td>"+order.CommodityName+"</td><td>"+order.Amount+"</td><td>"+order.Price+"</td></tr>"))
@@ -110,7 +109,7 @@
 				for(var i = 0; i < orders.length; i++)
 				{
 					var o = orders[i];
-					setTimeout(function(){addOrder(o);}, 0);
+					addOrder(o);
 					if(o.Id > lastId)
 						lastId = o.Id;
 				}
