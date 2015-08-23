@@ -78,7 +78,8 @@ CREATE OR REPLACE VIEW orders_users AS
 	users.name As username,
     users.longitude,
     users.latitude,
-    commodity.name as commodityname
+    commodity.name as commodityname,
+	orders.ordertype,
    FROM orders
      JOIN users ON orders.fkuserid = users.id
      JOIN commoditytype commodity on orders.commoditytype = commodity.id;
