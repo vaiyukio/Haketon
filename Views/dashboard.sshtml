@@ -18,6 +18,7 @@
 		<div class="col-md-3">
 			<div>
 				@Partial['sunburst']
+				<br />
 			</div>
 			<table class="table table-condensed table-dashboard">
 				<thead>
@@ -113,7 +114,7 @@
 			var arrowOffset = 0;
 			var anim = window.setInterval(function() {
 				arrowHead.setPatterns([
-					{offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, polygon: false, pathOptions: {stroke: true}})}
+					{offset: arrowOffset+'%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
 				])
 				if(++arrowOffset > 100)
 					arrowOffset = 0;

@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="@Path['~/Content/sunburst.css']" />
   </head>
   <body>
-    <div id="main">
+    <div id="main" style="padding: 10px 20px;">
       <div id="sequence"></div>
       <div id="chart">
         <div id="explanation" style="visibility: hidden;">
@@ -24,8 +24,8 @@
     </div>
     <script type="text/javascript">
 		// Dimensions of sunburst.
-		var width = 350;
-		var height = 350;
+		var width = 370;
+		var height = 370;
 		var radius = Math.min(width, height) / 2;
 
 		// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
