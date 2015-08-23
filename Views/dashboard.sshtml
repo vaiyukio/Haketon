@@ -108,7 +108,7 @@
 			}
 			pairs.push([pId, oId]);
 
-			var arrow = L.polyline([[p.Latitude, p.Longitude], [o.Latitude, o.Longitude]], {}).addTo(map);
+			var arrow = L.polyline([[o.Latitude, o.Longitude], [p.Latitude, p.Longitude]], {}).addTo(map);
 			var arrowHead = L.polylineDecorator(arrow).addTo(map);
 			var arrowOffset = 0;
 			var anim = window.setInterval(function() {
